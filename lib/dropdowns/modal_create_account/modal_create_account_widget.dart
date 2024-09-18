@@ -32,7 +32,7 @@ class _ModalCreateAccountWidgetState extends State<ModalCreateAccountWidget> {
     super.initState();
     _model = createModel(context, () => ModalCreateAccountModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

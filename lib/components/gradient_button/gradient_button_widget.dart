@@ -61,7 +61,7 @@ class _GradientButtonWidgetState extends State<GradientButtonWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -142,7 +142,7 @@ class _GradientButtonWidgetState extends State<GradientButtonWidget>
         ),
       ),
       onEnter: ((event) async {
-        setState(() => _model.mouseRegionHovered = true);
+        safeSetState(() => _model.mouseRegionHovered = true);
         if (animationsMap['iconOnActionTriggerAnimation'] != null) {
           animationsMap['iconOnActionTriggerAnimation']!
               .controller
@@ -150,7 +150,7 @@ class _GradientButtonWidgetState extends State<GradientButtonWidget>
         }
       }),
       onExit: ((event) async {
-        setState(() => _model.mouseRegionHovered = false);
+        safeSetState(() => _model.mouseRegionHovered = false);
         if (animationsMap['iconOnActionTriggerAnimation'] != null) {
           animationsMap['iconOnActionTriggerAnimation']!.controller.reverse();
         }

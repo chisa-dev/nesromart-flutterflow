@@ -5,13 +5,13 @@ Future initFirebase() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: FirebaseOptions(
-            apiKey: "AIzaSyDurqJcflRPv6OEQ2sEvQOqsh63JqsXpoY",
-            authDomain: "ff-enterprise-ecomm.firebaseapp.com",
-            projectId: "ff-enterprise-ecomm",
-            storageBucket: "ff-enterprise-ecomm.appspot.com",
-            messagingSenderId: "984148687140",
-            appId: "1:984148687140:web:f43b11867f35bed5d6dbb1",
-            measurementId: "G-XY360VB52P"));
+            apiKey: "AIzaSyBIkFiXLip-eG63wLQwa2r3R_84F3NSmbY",
+            authDomain: "nesromart-app.firebaseapp.com",
+            projectId: "nesromart-app",
+            storageBucket: "nesromart-app.appspot.com",
+            messagingSenderId: "916390148126",
+            appId: "1:916390148126:web:61daed5af4dbd2373a160f",
+            measurementId: "G-2NN92B55DM"));
   } else {
     await Firebase.initializeApp();
   }

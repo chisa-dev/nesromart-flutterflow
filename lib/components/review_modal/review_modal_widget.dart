@@ -30,7 +30,7 @@ class _ReviewModalWidgetState extends State<ReviewModalWidget> {
     super.initState();
     _model = createModel(context, () => ReviewModalModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -152,7 +152,7 @@ class _ReviewModalWidgetState extends State<ReviewModalWidget> {
                                             0.0, 8.0, 12.0, 8.0),
                                         child: RatingBar.builder(
                                           onRatingUpdate: (newValue) =>
-                                              setState(() => _model
+                                              safeSetState(() => _model
                                                   .ratingBarValue = newValue),
                                           itemBuilder: (context, index) => Icon(
                                             Icons.star_rounded,

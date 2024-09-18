@@ -18,7 +18,6 @@ import 'package:provider/provider.dart';
 class SellerDetailsModel extends FlutterFlowModel<SellerDetailsWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for topNav component.
   late TopNavModel topNavModel;
   // Model for gradientButton component.
@@ -40,7 +39,6 @@ class SellerDetailsModel extends FlutterFlowModel<SellerDetailsWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     topNavModel.dispose();
     gradientButtonModel.dispose();
     tabBarController?.dispose();

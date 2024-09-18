@@ -2,22 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>984148687140-tnc3tgqad26tjninogl63a5d36lsmjr2.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.984148687140-tnc3tgqad26tjninogl63a5d36lsmjr2</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>916390148126-m4f2qnm5lf2fuqaia7j76bhr50mih26c.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCBwNnebUFpFxbmK7WHZt-sxVqDyiYjk8o</string>
+	<string>AIzaSyCVamedRvvZzEQ0QDeE0jcIrncr7f36AtY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>984148687140</string>
+	<string>916390148126</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mycompany.ffenterpriseecomm</string>
+	<string>com.horansoftware.nesromart</string>
 	<key>PROJECT_ID</key>
-	<string>ff-enterprise-ecomm</string>
+	<string>nesromart-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>ff-enterprise-ecomm.appspot.com</string>
+	<string>nesromart-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +27,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:984148687140:ios:dd3f92f9ac9caa70d6dbb1</string>
+	<string>1:916390148126:ios:bdb8f4d083131ffc3a160f</string>
 </dict>
 </plist>

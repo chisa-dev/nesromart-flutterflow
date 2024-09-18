@@ -32,7 +32,7 @@ class _CheckoutModalWidgetState extends State<CheckoutModalWidget> {
     super.initState();
     _model = createModel(context, () => CheckoutModalModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -518,6 +518,7 @@ class _CheckoutModalWidgetState extends State<CheckoutModalWidget> {
                                       FontAwesomeIcons.apple,
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      size: 15.0,
                                     ),
                                     options: FFButtonOptions(
                                       width: 270.0,
@@ -561,6 +562,7 @@ class _CheckoutModalWidgetState extends State<CheckoutModalWidget> {
                                       FontAwesomeIcons.paypal,
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      size: 15.0,
                                     ),
                                     options: FFButtonOptions(
                                       width: 270.0,

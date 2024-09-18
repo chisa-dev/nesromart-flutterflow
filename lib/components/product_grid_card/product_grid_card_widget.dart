@@ -1,4 +1,3 @@
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -15,11 +14,9 @@ export 'product_grid_card_model.dart';
 class ProductGridCardWidget extends StatefulWidget {
   const ProductGridCardWidget({
     super.key,
-    required this.productRef,
     required this.action,
   });
 
-  final ProductsRecord? productRef;
   final Future Function()? action;
 
   @override
@@ -92,7 +89,7 @@ class _ProductGridCardWidgetState extends State<ProductGridCardWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -104,8 +101,6 @@ class _ProductGridCardWidgetState extends State<ProductGridCardWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: EdgeInsets.all(4.0),
       child: InkWell(
@@ -143,71 +138,61 @@ class _ProductGridCardWidgetState extends State<ProductGridCardWidget>
                   child: Stack(
                     children: [
                       Hero(
-                        tag: widget.productRef!.photoUrl,
+                        tag: 'productMain',
                         transitionOnUserGestures: true,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: Image.network(
-                            widget.productRef!.photoUrl,
+                            'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/adf87c27-e670-4e75-86fd-31c1241b9ed6/air-max-90-mens-shoes-6n3vKB.png',
                             width: double.infinity,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      if (!FFAppState()
-                          .cart
-                          .contains(widget.productRef?.reference))
-                        Align(
-                          alignment: AlignmentDirectional(1.0, -1.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 12.0, 0.0),
-                            child: FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 12.0,
-                              borderWidth: 1.0,
-                              buttonSize: 44.0,
-                              fillColor: FlutterFlowTheme.of(context).accent4,
-                              icon: Icon(
-                                Icons.shopping_cart_outlined,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 24.0,
-                              ),
-                              onPressed: () async {
-                                FFAppState()
-                                    .addToCart(widget.productRef!.reference);
-                                FFAppState().addToCartPriceSummary(
-                                    widget.productRef!.price);
-                                _model.updatePage(() {});
-                              },
+                      Align(
+                        alignment: AlignmentDirectional(1.0, -1.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 12.0, 12.0, 0.0),
+                          child: FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
+                            borderRadius: 12.0,
+                            borderWidth: 1.0,
+                            buttonSize: 44.0,
+                            fillColor: FlutterFlowTheme.of(context).accent4,
+                            icon: Icon(
+                              Icons.shopping_cart_outlined,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 24.0,
                             ),
+                            onPressed: () {
+                              print('addToCart pressed ...');
+                            },
                           ),
                         ),
-                      if (FFAppState()
-                          .cart
-                          .contains(widget.productRef?.reference))
-                        Align(
-                          alignment: AlignmentDirectional(1.0, -1.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 12.0, 0.0),
-                            child: Container(
-                              width: 32.0,
-                              height: 32.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary,
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Icon(
-                                Icons.check_rounded,
-                                color: FlutterFlowTheme.of(context).info,
-                                size: 24.0,
-                              ),
-                            ).animateOnPageLoad(animationsMap[
-                                'containerOnPageLoadAnimation2']!),
-                          ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(1.0, -1.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 12.0, 12.0, 0.0),
+                          child: Container(
+                            width: 32.0,
+                            height: 32.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).primary,
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Icon(
+                              Icons.check_rounded,
+                              color: FlutterFlowTheme.of(context).info,
+                              size: 24.0,
+                            ),
+                          ).animateOnPageLoad(
+                              animationsMap['containerOnPageLoadAnimation2']!),
                         ),
+                      ),
                     ],
                   ),
                 ),
@@ -222,7 +207,7 @@ class _ProductGridCardWidgetState extends State<ProductGridCardWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 12.0, 0.0),
                           child: Text(
-                            widget.productRef!.name,
+                            'Sport Tennis Shoe',
                             style: FlutterFlowTheme.of(context)
                                 .bodyLarge
                                 .override(
@@ -237,12 +222,7 @@ class _ProductGridCardWidgetState extends State<ProductGridCardWidget>
                         ),
                       ),
                       Text(
-                        formatNumber(
-                          widget.productRef!.price,
-                          formatType: FormatType.decimal,
-                          decimalType: DecimalType.automatic,
-                          currency: '\$',
-                        ),
+                        '\$150.00',
                         style:
                             FlutterFlowTheme.of(context).headlineSmall.override(
                                   fontFamily: FlutterFlowTheme.of(context)
@@ -259,7 +239,7 @@ class _ProductGridCardWidgetState extends State<ProductGridCardWidget>
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                   child: Text(
-                    widget.productRef!.category,
+                    '4 Colorways',
                     style: FlutterFlowTheme.of(context).labelMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).labelMediumFamily,

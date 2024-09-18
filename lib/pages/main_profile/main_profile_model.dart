@@ -1,6 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/components/emtpy_state/emtpy_state_widget.dart';
 import '/components/modal_edit/modal_edit_widget.dart';
 import '/components/top_nav/top_nav_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -15,7 +13,6 @@ import 'package:provider/provider.dart';
 class MainProfileModel extends FlutterFlowModel<MainProfileWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for topNav component.
   late TopNavModel topNavModel;
 
@@ -26,7 +23,6 @@ class MainProfileModel extends FlutterFlowModel<MainProfileWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     topNavModel.dispose();
   }
 }

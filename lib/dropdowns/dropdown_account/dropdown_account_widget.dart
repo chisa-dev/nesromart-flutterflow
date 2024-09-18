@@ -74,7 +74,7 @@ class _DropdownAccountWidgetState extends State<DropdownAccountWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -325,10 +325,10 @@ class _DropdownAccountWidgetState extends State<DropdownAccountWidget>
                     ),
                   ),
                   onEnter: ((event) async {
-                    setState(() => _model.mouseRegionHovered1 = true);
+                    safeSetState(() => _model.mouseRegionHovered1 = true);
                   }),
                   onExit: ((event) async {
-                    setState(() => _model.mouseRegionHovered1 = false);
+                    safeSetState(() => _model.mouseRegionHovered1 = false);
                   }),
                 ),
               ),
@@ -387,10 +387,10 @@ class _DropdownAccountWidgetState extends State<DropdownAccountWidget>
                     ),
                   ),
                   onEnter: ((event) async {
-                    setState(() => _model.mouseRegionHovered2 = true);
+                    safeSetState(() => _model.mouseRegionHovered2 = true);
                   }),
                   onExit: ((event) async {
-                    setState(() => _model.mouseRegionHovered2 = false);
+                    safeSetState(() => _model.mouseRegionHovered2 = false);
                   }),
                 ),
               ),
@@ -449,10 +449,10 @@ class _DropdownAccountWidgetState extends State<DropdownAccountWidget>
                     ),
                   ),
                   onEnter: ((event) async {
-                    setState(() => _model.mouseRegionHovered3 = true);
+                    safeSetState(() => _model.mouseRegionHovered3 = true);
                   }),
                   onExit: ((event) async {
-                    setState(() => _model.mouseRegionHovered3 = false);
+                    safeSetState(() => _model.mouseRegionHovered3 = false);
                   }),
                 ),
               ),
@@ -617,10 +617,10 @@ class _DropdownAccountWidgetState extends State<DropdownAccountWidget>
                     ),
                   ),
                   onEnter: ((event) async {
-                    setState(() => _model.mouseRegionHovered4 = true);
+                    safeSetState(() => _model.mouseRegionHovered4 = true);
                   }),
                   onExit: ((event) async {
-                    setState(() => _model.mouseRegionHovered4 = false);
+                    safeSetState(() => _model.mouseRegionHovered4 = false);
                   }),
                 ),
               ),

@@ -1,4 +1,3 @@
-import '/backend/backend.dart';
 import '/components/gradient_button/gradient_button_widget.dart';
 import '/components/top_nav/top_nav_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -10,7 +9,6 @@ import 'dart:math';
 import 'order_history_details_widget.dart' show OrderHistoryDetailsWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -22,7 +20,6 @@ class OrderHistoryDetailsModel
     extends FlutterFlowModel<OrderHistoryDetailsWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for topNav component.
   late TopNavModel topNavModel;
   // Model for gradientButton component.
@@ -36,7 +33,6 @@ class OrderHistoryDetailsModel
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     topNavModel.dispose();
     gradientButtonModel.dispose();
   }

@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/components/main_logo/main_logo_widget.dart';
 import '/dropdowns/dropdown_account/dropdown_account_widget.dart';
 import '/dropdowns/dropdown_notifications/dropdown_notifications_widget.dart';
@@ -78,7 +77,7 @@ class _TopNavWidgetState extends State<TopNavWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -90,8 +89,6 @@ class _TopNavWidgetState extends State<TopNavWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -126,10 +123,23 @@ class _TopNavWidgetState extends State<TopNavWidget>
                           height: 44.0,
                           decoration: BoxDecoration(),
                         ),
-                      wrapWithModel(
-                        model: _model.mainLogoModel,
-                        updateCallback: () => setState(() {}),
-                        child: MainLogoWidget(),
+                      if (false)
+                        wrapWithModel(
+                          model: _model.mainLogoModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: MainLogoWidget(),
+                        ),
+                      Text(
+                        'Nesro Mart',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Montserrat',
+                              fontSize: 30.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w800,
+                              fontStyle: FontStyle.italic,
+                              useGoogleFonts:
+                                  GoogleFonts.asMap().containsKey('Montserrat'),
+                            ),
                       ),
                     ],
                   ),
@@ -344,61 +354,34 @@ class _TopNavWidgetState extends State<TopNavWidget>
                 ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
-                child: FutureBuilder<int>(
-                  future: queryActivityRecordCount(
-                    queryBuilder: (activityRecord) => activityRecord.where(
-                      'unreadByUser',
-                      arrayContains: currentUserReference,
-                    ),
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
+                child: badges.Badge(
+                  badgeContent: Text(
+                    '1',
+                    style: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).titleSmallFamily,
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                          useGoogleFonts: GoogleFonts.asMap().containsKey(
+                              FlutterFlowTheme.of(context).titleSmallFamily),
                         ),
-                      );
-                    }
-                    int badgeCount = snapshot.data!;
-                    return badges.Badge(
-                      badgeContent: Text(
-                        badgeCount.toString(),
-                        style: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).titleSmallFamily,
-                              color: Colors.white,
-                              letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .titleSmallFamily),
-                            ),
-                      ),
-                      showBadge: true,
-                      shape: badges.BadgeShape.circle,
-                      badgeColor: badgeCount > 0
-                          ? FlutterFlowTheme.of(context).primary
-                          : FlutterFlowTheme.of(context).alternate,
-                      elevation: 4.0,
-                      padding: EdgeInsets.all(8.0),
-                      position: badges.BadgePosition.topEnd(),
-                      animationType: badges.BadgeAnimationType.scale,
-                      toAnimate: true,
-                      child: AlignedTooltip(
-                        content: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 4.0, 8.0, 4.0),
-                          child: Text(
-                            'Notifications',
-                            style: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
+                  ),
+                  showBadge: true,
+                  shape: badges.BadgeShape.circle,
+                  badgeColor: FlutterFlowTheme.of(context).primary,
+                  elevation: 4.0,
+                  padding: EdgeInsets.all(8.0),
+                  position: badges.BadgePosition.topEnd(),
+                  animationType: badges.BadgeAnimationType.scale,
+                  toAnimate: true,
+                  child: AlignedTooltip(
+                    content: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
+                      child: Text(
+                        'Notifications',
+                        style:
+                            FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .labelMediumFamily,
                                   letterSpacing: 0.0,
@@ -406,55 +389,53 @@ class _TopNavWidgetState extends State<TopNavWidget>
                                       .containsKey(FlutterFlowTheme.of(context)
                                           .labelMediumFamily),
                                 ),
-                          ),
-                        ),
-                        offset: 4.0,
-                        preferredDirection: AxisDirection.down,
-                        borderRadius: BorderRadius.circular(8.0),
-                        backgroundColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        elevation: 3.0,
-                        tailBaseWidth: 16.0,
-                        tailLength: 8.0,
-                        waitDuration: Duration(milliseconds: 50),
-                        showDuration: Duration(milliseconds: 600),
-                        triggerMode: TooltipTriggerMode.tap,
-                        child: Builder(
-                          builder: (context) => FlutterFlowIconButton(
-                            borderColor: FlutterFlowTheme.of(context).alternate,
-                            borderRadius: 12.0,
-                            borderWidth: 1.0,
-                            buttonSize: 44.0,
-                            fillColor:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            icon: Icon(
-                              FFIcons.kbell01,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                            onPressed: () async {
-                              await showAlignedDialog(
-                                barrierColor: Colors.transparent,
-                                context: context,
-                                isGlobal: false,
-                                avoidOverflow: true,
-                                targetAnchor: AlignmentDirectional(-1.0, 1.0)
-                                    .resolve(Directionality.of(context)),
-                                followerAnchor: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                builder: (dialogContext) {
-                                  return Material(
-                                    color: Colors.transparent,
-                                    child: DropdownNotificationsWidget(),
-                                  );
-                                },
-                              ).then((value) => setState(() {}));
-                            },
-                          ),
-                        ),
                       ),
-                    );
-                  },
+                    ),
+                    offset: 4.0,
+                    preferredDirection: AxisDirection.down,
+                    borderRadius: BorderRadius.circular(8.0),
+                    backgroundColor:
+                        FlutterFlowTheme.of(context).secondaryBackground,
+                    elevation: 3.0,
+                    tailBaseWidth: 16.0,
+                    tailLength: 8.0,
+                    waitDuration: Duration(milliseconds: 50),
+                    showDuration: Duration(milliseconds: 600),
+                    triggerMode: TooltipTriggerMode.tap,
+                    child: Builder(
+                      builder: (context) => FlutterFlowIconButton(
+                        borderColor: FlutterFlowTheme.of(context).alternate,
+                        borderRadius: 12.0,
+                        borderWidth: 1.0,
+                        buttonSize: 44.0,
+                        fillColor:
+                            FlutterFlowTheme.of(context).primaryBackground,
+                        icon: Icon(
+                          FFIcons.kbell01,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 24.0,
+                        ),
+                        onPressed: () async {
+                          await showAlignedDialog(
+                            barrierColor: Colors.transparent,
+                            context: context,
+                            isGlobal: false,
+                            avoidOverflow: true,
+                            targetAnchor: AlignmentDirectional(-1.0, 1.0)
+                                .resolve(Directionality.of(context)),
+                            followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            builder: (dialogContext) {
+                              return Material(
+                                color: Colors.transparent,
+                                child: DropdownNotificationsWidget(),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
                 ),
               ),
               if ((currentUserReference != null) &&
@@ -517,7 +498,7 @@ class _TopNavWidgetState extends State<TopNavWidget>
                                     child: DropdownAccountWidget(),
                                   );
                                 },
-                              ).then((value) => setState(() {}));
+                              );
                             },
                             child: Container(
                               width: 44.0,
@@ -662,10 +643,7 @@ class _TopNavWidgetState extends State<TopNavWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 24.0, 0.0),
                 child: badges.Badge(
                   badgeContent: Text(
-                    valueOrDefault<String>(
-                      FFAppState().cartItems.length.toString(),
-                      '0',
-                    ),
+                    '1',
                     style: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).titleSmallFamily,
@@ -675,7 +653,7 @@ class _TopNavWidgetState extends State<TopNavWidget>
                               FlutterFlowTheme.of(context).titleSmallFamily),
                         ),
                   ),
-                  showBadge: FFAppState().cart.length >= 1,
+                  showBadge: true,
                   shape: badges.BadgeShape.circle,
                   badgeColor: FlutterFlowTheme.of(context).primary,
                   elevation: 4.0,
@@ -739,7 +717,7 @@ class _TopNavWidgetState extends State<TopNavWidget>
                                 child: OrderSummaryNewWidget(),
                               );
                             },
-                          ).then((value) => setState(() {}));
+                          );
                         },
                       ),
                     ),

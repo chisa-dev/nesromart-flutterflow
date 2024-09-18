@@ -1,15 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -46,11 +42,10 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
         TextEditingController(text: currentUserDisplayName);
     _model.yourNameFocusNode ??= FocusNode();
 
-    _model.myBioTextController ??= TextEditingController(
-        text: valueOrDefault(currentUserDocument?.bio, ''));
+    _model.myBioTextController ??= TextEditingController();
     _model.myBioFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -76,7 +71,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                if (widget.editProfile == true)
+                if (widget!.editProfile == true)
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
@@ -98,7 +93,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                   child: Text(
-                    widget.editProfile == true
+                    widget!.editProfile == true
                         ? 'Edit Profile'
                         : 'Create Your Profile',
                     style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -140,7 +135,7 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                   if (selectedMedia != null &&
                       selectedMedia.every(
                           (m) => validateFileFormat(m.storagePath, context))) {
-                    setState(() => _model.isDataUploading = true);
+                    safeSetState(() => _model.isDataUploading = true);
                     var selectedUploadedFiles = <FFUploadedFile>[];
 
                     var downloadUrls = <String>[];
@@ -174,13 +169,13 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
                     }
                     if (selectedUploadedFiles.length == selectedMedia.length &&
                         downloadUrls.length == selectedMedia.length) {
-                      setState(() {
+                      safeSetState(() {
                         _model.uploadedLocalFile = selectedUploadedFiles.first;
                         _model.uploadedFileUrl = downloadUrls.first;
                       });
                       showUploadMessage(context, 'Success!');
                     } else {
-                      setState(() {});
+                      safeSetState(() {});
                       showUploadMessage(context, 'Failed to upload data');
                       return;
                     }
@@ -313,195 +308,75 @@ class _EditProfileFormWidgetState extends State<EditProfileFormWidget> {
         ),
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
-          child: AuthUserStreamWidget(
-            builder: (context) => FlutterFlowDropDown<String>(
-              controller: _model.stateValueController ??=
-                  FormFieldController<String>(
-                _model.stateValue ??=
-                    valueOrDefault(currentUserDocument?.location, ''),
-              ),
-              options: [
-                'Alabama',
-                'Alaska',
-                'Arizona',
-                'Arkansas',
-                'California',
-                'Colorado',
-                'Connecticut',
-                'Delaware',
-                'Florida',
-                'Georgia',
-                'Hawaii',
-                'Idaho',
-                'Illinoi',
-                'Indiana',
-                'Iowa',
-                'Kansas',
-                'Kentucky',
-                'Louisiana',
-                'Maine',
-                'Maryland',
-                'Massachusetts',
-                'Michigan',
-                'Minnesota',
-                'Mississippi',
-                'Missouri',
-                'Monta',
-                'Nebraska',
-                'Nevada',
-                'New Hampshire',
-                'New Jersey',
-                'New Mexico',
-                'New York',
-                'North Carolina',
-                'North Dak',
-                'Ohio',
-                'Oklahoma',
-                'Oregon',
-                'Pennsylvani',
-                'Rhode Island',
-                'South Caroli',
-                'South Dakota',
-                'Tennessee',
-                'Texas',
-                'Utah',
-                'Vermont',
-                'Virginia',
-                'Washingto',
-                'West Virginia',
-                'Wisconsin',
-                'Wyoming'
-              ],
-              onChanged: (val) => setState(() => _model.stateValue = val),
-              width: double.infinity,
-              height: 56.0,
-              textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+          child: TextFormField(
+            controller: _model.myBioTextController,
+            focusNode: _model.myBioFocusNode,
+            textCapitalization: TextCapitalization.sentences,
+            obscureText: false,
+            decoration: InputDecoration(
+              labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                    fontFamily: FlutterFlowTheme.of(context).labelMediumFamily,
                     letterSpacing: 0.0,
                     useGoogleFonts: GoogleFonts.asMap().containsKey(
-                        FlutterFlowTheme.of(context).bodyMediumFamily),
+                        FlutterFlowTheme.of(context).labelMediumFamily),
                   ),
-              hintText: 'Select State',
-              icon: Icon(
-                Icons.keyboard_arrow_down_rounded,
-                color: FlutterFlowTheme.of(context).secondaryText,
-                size: 15.0,
+              hintText: 'Your bio',
+              hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                    fontFamily: FlutterFlowTheme.of(context).labelMediumFamily,
+                    letterSpacing: 0.0,
+                    useGoogleFonts: GoogleFonts.asMap().containsKey(
+                        FlutterFlowTheme.of(context).labelMediumFamily),
+                  ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).alternate,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
               ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).primary,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).error,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).error,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              filled: true,
               fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-              elevation: 2.0,
-              borderColor: FlutterFlowTheme.of(context).alternate,
-              borderWidth: 2.0,
-              borderRadius: 8.0,
-              margin: EdgeInsetsDirectional.fromSTEB(20.0, 4.0, 12.0, 4.0),
-              hidesUnderline: true,
-              isSearchable: false,
-              isMultiSelect: false,
+              contentPadding:
+                  EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
             ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
-          child: AuthUserStreamWidget(
-            builder: (context) => TextFormField(
-              controller: _model.myBioTextController,
-              focusNode: _model.myBioFocusNode,
-              textCapitalization: TextCapitalization.sentences,
-              obscureText: false,
-              decoration: InputDecoration(
-                labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily:
-                          FlutterFlowTheme.of(context).labelMediumFamily,
-                      letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).labelMediumFamily),
-                    ),
-                hintText: 'Your bio',
-                hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily:
-                          FlutterFlowTheme.of(context).labelMediumFamily,
-                      letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).labelMediumFamily),
-                    ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).alternate,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                  letterSpacing: 0.0,
+                  useGoogleFonts: GoogleFonts.asMap().containsKey(
+                      FlutterFlowTheme.of(context).bodyMediumFamily),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                filled: true,
-                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                contentPadding:
-                    EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
-              ),
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                    letterSpacing: 0.0,
-                    useGoogleFonts: GoogleFonts.asMap().containsKey(
-                        FlutterFlowTheme.of(context).bodyMediumFamily),
-                  ),
-              textAlign: TextAlign.start,
-              maxLines: 3,
-              cursorColor: FlutterFlowTheme.of(context).primary,
-              validator:
-                  _model.myBioTextControllerValidator.asValidator(context),
-            ),
+            textAlign: TextAlign.start,
+            maxLines: 3,
+            cursorColor: FlutterFlowTheme.of(context).primary,
+            validator: _model.myBioTextControllerValidator.asValidator(context),
           ),
         ),
         Align(
           alignment: AlignmentDirectional(0.0, 0.05),
           child: FFButtonWidget(
-            onPressed: () async {
-              await currentUserReference!.update(createUsersRecordData(
-                displayName: _model.yourNameTextController.text,
-                photoUrl: _model.uploadedFileUrl != null &&
-                        _model.uploadedFileUrl != ''
-                    ? _model.uploadedFileUrl
-                    : currentUserPhoto,
-                bio: _model.myBioTextController.text,
-                location: _model.stateValue,
-              ));
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'You have updated your profile!',
-                    style: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).titleSmallFamily,
-                          color: FlutterFlowTheme.of(context).info,
-                          letterSpacing: 0.0,
-                          useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context).titleSmallFamily),
-                        ),
-                  ),
-                  duration: Duration(milliseconds: 4000),
-                  backgroundColor: FlutterFlowTheme.of(context).primary,
-                ),
-              );
-
-              context.pushNamed('mainHomePage');
+            onPressed: () {
+              print('Button pressed ...');
             },
             text: 'Save Changes',
             options: FFButtonOptions(

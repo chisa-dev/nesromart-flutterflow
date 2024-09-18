@@ -1,22 +1,15 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/add_address_base/add_address_base_widget.dart';
 import '/components/gradient_button/gradient_button_widget.dart';
 import '/components/top_nav/top_nav_widget.dart';
 import '/components/u_i_marker/u_i_marker_widget.dart';
 import '/dropdowns/modal_add_address/modal_add_address_widget.dart';
-import '/dropdowns/modal_create_account/modal_create_account_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
-import '/flutter_flow/custom_functions.dart' as functions;
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'checkout_full_page_widget.dart' show CheckoutFullPageWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,19 +23,8 @@ class CheckoutFullPageModel extends FlutterFlowModel<CheckoutFullPageWidget> {
 
   int stepNumber = 1;
 
-  AddressStruct? address;
-  void updateAddressStruct(Function(AddressStruct) updateFn) {
-    updateFn(address ??= AddressStruct());
-  }
-
-  ShippingOptionsStruct? shippingOption;
-  void updateShippingOptionStruct(Function(ShippingOptionsStruct) updateFn) {
-    updateFn(shippingOption ??= ShippingOptionsStruct());
-  }
-
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for topNav component.
   late TopNavModel topNavModel;
   // Model for gradientButton component.
@@ -77,7 +59,6 @@ class CheckoutFullPageModel extends FlutterFlowModel<CheckoutFullPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     topNavModel.dispose();
     gradientButtonModel.dispose();
     expandableExpandableController1.dispose();

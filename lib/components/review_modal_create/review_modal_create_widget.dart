@@ -1,10 +1,7 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,12 +10,7 @@ import 'review_modal_create_model.dart';
 export 'review_modal_create_model.dart';
 
 class ReviewModalCreateWidget extends StatefulWidget {
-  const ReviewModalCreateWidget({
-    super.key,
-    required this.productRef,
-  });
-
-  final ProductsRecord? productRef;
+  const ReviewModalCreateWidget({super.key});
 
   @override
   State<ReviewModalCreateWidget> createState() =>
@@ -45,7 +37,7 @@ class _ReviewModalCreateWidgetState extends State<ReviewModalCreateWidget> {
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -341,24 +333,31 @@ class _ReviewModalCreateWidgetState extends State<ReviewModalCreateWidget> {
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 16.0, 0.0, 8.0),
-                            child: RatingBar.builder(
-                              onRatingUpdate: (newValue) {
-                                setState(
-                                    () => _model.ratingBarValue = newValue);
-                                _model.ratingSet = true;
-                                setState(() {});
-                              },
-                              itemBuilder: (context, index) => Icon(
-                                Icons.star_rounded,
-                                color: FlutterFlowTheme.of(context).secondary,
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              child: RatingBar.builder(
+                                onRatingUpdate: (newValue) {
+                                  safeSetState(
+                                      () => _model.ratingBarValue = newValue);
+                                  _model.ratingSet = true;
+                                  safeSetState(() {});
+                                },
+                                itemBuilder: (context, index) => Icon(
+                                  Icons.star_rounded,
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                ),
+                                direction: Axis.horizontal,
+                                initialRating: _model.ratingBarValue ??= 0.0,
+                                unratedColor:
+                                    FlutterFlowTheme.of(context).accent2,
+                                itemCount: 5,
+                                itemSize: 44.0,
+                                glowColor:
+                                    FlutterFlowTheme.of(context).secondary,
                               ),
-                              direction: Axis.horizontal,
-                              initialRating: _model.ratingBarValue ??= 0.0,
-                              unratedColor:
-                                  FlutterFlowTheme.of(context).accent2,
-                              itemCount: 5,
-                              itemSize: 44.0,
-                              glowColor: FlutterFlowTheme.of(context).secondary,
                             ),
                           ),
                         ),
@@ -429,60 +428,8 @@ class _ReviewModalCreateWidgetState extends State<ReviewModalCreateWidget> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               FFButtonWidget(
-                                onPressed: () async {
-                                  if (_model.ratingBarValue! > 1.0) {
-                                    if (_model.formKey.currentState == null ||
-                                        !_model.formKey.currentState!
-                                            .validate()) {
-                                      return;
-                                    }
-
-                                    await ReviewsRecord.collection
-                                        .doc()
-                                        .set(createReviewsRecordData(
-                                          reviewName:
-                                              _model.textController1.text,
-                                          reviewDescription:
-                                              _model.textController2.text,
-                                          userRefReviewer: currentUserReference,
-                                          productRef:
-                                              widget.productRef?.reference,
-                                          dateCreated: getCurrentTimestamp,
-                                          rating: _model.ratingBarValue,
-                                        ));
-                                    Navigator.pop(context);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Thanks for leaving a review!',
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleSmall
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmallFamily,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleSmallFamily),
-                                              ),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                      ),
-                                    );
-                                  } else {
-                                    _model.ratingSet = false;
-                                    setState(() {});
-                                  }
+                                onPressed: () {
+                                  print('Button pressed ...');
                                 },
                                 text: 'Leave a Review',
                                 options: FFButtonOptions(

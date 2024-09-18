@@ -1,4 +1,4 @@
-package com.mycompany.ffenterpriseecomm
+package com.horansoftware.nesromart
 
 import io.flutter.embedding.android.FlutterActivity
 

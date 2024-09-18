@@ -36,7 +36,7 @@ class _EmtpyStateWidgetState extends State<EmtpyStateWidget> {
     super.initState();
     _model = createModel(context, () => EmtpyStateModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -56,10 +56,10 @@ class _EmtpyStateWidgetState extends State<EmtpyStateWidget> {
         children: [
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-            child: widget.icon!,
+            child: widget!.icon!,
           ),
           Text(
-            widget.title!,
+            widget!.title!,
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: FlutterFlowTheme.of(context).headlineMediumFamily,
                   letterSpacing: 0.0,
@@ -70,7 +70,7 @@ class _EmtpyStateWidgetState extends State<EmtpyStateWidget> {
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 0.0),
             child: Text(
-              widget.bodyText!,
+              widget!.bodyText!,
               textAlign: TextAlign.center,
               style: FlutterFlowTheme.of(context).labelMedium.override(
                     fontFamily: FlutterFlowTheme.of(context).labelMediumFamily,

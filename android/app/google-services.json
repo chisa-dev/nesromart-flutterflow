@@ -1,43 +1,45 @@
 {
   "project_info": {
-    "project_number": "984148687140",
-    "project_id": "ff-enterprise-ecomm",
-    "storage_bucket": "ff-enterprise-ecomm.appspot.com"
+    "project_number": "916390148126",
+    "project_id": "nesromart-app",
+    "storage_bucket": "nesromart-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:984148687140:android:7ab6c11c46a6640cd6dbb1",
+        "mobilesdk_app_id": "1:916390148126:android:df8061f18e1dd3cb3a160f",
         "android_client_info": {
-          "package_name": "com.mycompany.ffenterpriseecomm"
+          "package_name": "com.horansoftware.nesromart"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "984148687140-77tnaiebkp0cs1v982hhthjormr12rjg.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBZx2yPwLQo2mk31ZzGTC-POZWzfLYuwK4"
+          "current_key": "AIzaSyDtovUZ2jNeoIZiO521oPEF9yV0ImKyjXY"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "984148687140-77tnaiebkp0cs1v982hhthjormr12rjg.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "984148687140-tnc3tgqad26tjninogl63a5d36lsmjr2.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.mycompany.ffenterpriseecomm"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916390148126:android:b87f320e76b162b03a160f",
+        "android_client_info": {
+          "package_name": "com.horansoftware.nesromart_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtovUZ2jNeoIZiO521oPEF9yV0ImKyjXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }

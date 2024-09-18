@@ -1,12 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/add_address_base/add_address_base_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +30,7 @@ class _ModalAddAddressWidgetState extends State<ModalAddAddressWidget> {
     super.initState();
     _model = createModel(context, () => ModalAddAddressModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -161,47 +157,10 @@ class _ModalAddAddressWidgetState extends State<ModalAddAddressWidget> {
                         ),
                         wrapWithModel(
                           model: _model.addAddressBaseModel,
-                          updateCallback: () => setState(() {}),
+                          updateCallback: () => safeSetState(() {}),
                           updateOnChange: true,
                           child: AddAddressBaseWidget(
-                            action: () async {
-                              // addAddress_Account
-
-                              await currentUserReference!.update({
-                                ...mapToFirestore(
-                                  {
-                                    'addresses': FieldValue.arrayUnion([
-                                      getAddressFirestoreData(
-                                        updateAddressStruct(
-                                          AddressStruct(
-                                            defaultAddress: true,
-                                            addressName: _model
-                                                .addAddressBaseModel
-                                                .addressTextController
-                                                .text,
-                                            address: _model.addAddressBaseModel
-                                                .addressTextController.text,
-                                            address2: _model.addAddressBaseModel
-                                                .clonableURLTextController.text,
-                                            city: _model.addAddressBaseModel
-                                                .cityTextController.text,
-                                            state: _model.addAddressBaseModel
-                                                .stateTextController.text,
-                                            postalCode: int.tryParse(_model
-                                                .addAddressBaseModel
-                                                .zipTextController
-                                                .text),
-                                          ),
-                                          clearUnsetFields: false,
-                                        ),
-                                        true,
-                                      )
-                                    ]),
-                                  },
-                                ),
-                              });
-                              Navigator.pop(context);
-                            },
+                            action: () async {},
                           ),
                         ),
                       ],

@@ -1,4 +1,3 @@
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -17,11 +16,9 @@ export 'product_list_view_model.dart';
 class ProductListViewWidget extends StatefulWidget {
   const ProductListViewWidget({
     super.key,
-    required this.productRef,
     required this.favorited,
   });
 
-  final ProductsRecord? productRef;
   final bool? favorited;
 
   @override
@@ -94,7 +91,7 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -106,8 +103,6 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
       child: InkWell(
@@ -116,18 +111,7 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          context.pushNamed(
-            'productDetails',
-            queryParameters: {
-              'productRef': serializeParam(
-                widget.productRef,
-                ParamType.Document,
-              ),
-            }.withoutNulls,
-            extra: <String, dynamic>{
-              'productRef': widget.productRef,
-            },
-          );
+          context.pushNamed('productDetails');
         },
         child: Container(
           width: double.infinity,
@@ -157,14 +141,15 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Hero(
-                        tag: widget.productRef!.photoUrl,
+                        tag: '',
                         transitionOnUserGestures: true,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.0),
                           child: CachedNetworkImage(
                             fadeInDuration: Duration(milliseconds: 500),
                             fadeOutDuration: Duration(milliseconds: 500),
-                            imageUrl: widget.productRef!.photoUrl,
+                            imageUrl:
+                                'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/adf87c27-e670-4e75-86fd-31c1241b9ed6/air-max-90-mens-shoes-6n3vKB.png',
                             width: 100.0,
                             height: 100.0,
                             fit: BoxFit.cover,
@@ -190,7 +175,7 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 4.0),
                                 child: Text(
-                                  widget.productRef!.name,
+                                  'Vitsoe 1982',
                                   style: FlutterFlowTheme.of(context)
                                       .titleLarge
                                       .override(
@@ -208,7 +193,7 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 4.0, 0.0, 0.0),
                                 child: Text(
-                                  widget.productRef!.description,
+                                  'Ordered on Feb 15, 2022',
                                   style: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
@@ -245,7 +230,7 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
                                       0.0, 0.0, 16.0, 0.0),
                                   child: ToggleIcon(
                                     onPressed: () async {
-                                      setState(() => _model.favorited =
+                                      safeSetState(() => _model.favorited =
                                           !_model.favorited!);
                                     },
                                     value: _model.favorited!,
@@ -264,12 +249,7 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
                                   ),
                                 ),
                                 Text(
-                                  formatNumber(
-                                    widget.productRef!.price,
-                                    formatType: FormatType.decimal,
-                                    decimalType: DecimalType.automatic,
-                                    currency: '\$',
-                                  ),
+                                  '\$126.20',
                                   textAlign: TextAlign.end,
                                   style: FlutterFlowTheme.of(context)
                                       .headlineSmall
@@ -295,87 +275,42 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
                               child: Stack(
                                 alignment: AlignmentDirectional(0.0, 0.0),
                                 children: [
-                                  if (!FFAppState()
-                                      .cart
-                                      .contains(widget.productRef?.reference))
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(1.0, -1.0),
-                                      child: FlutterFlowIconButton(
-                                        borderColor: Colors.transparent,
-                                        borderRadius: 12.0,
-                                        borderWidth: 1.0,
-                                        buttonSize: 44.0,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .accent1,
-                                        icon: Icon(
-                                          Icons.shopping_cart_outlined,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 24.0,
-                                        ),
-                                        onPressed: () async {
-                                          FFAppState().addToCart(
-                                              widget.productRef!.reference);
-                                          FFAppState().addToCartPriceSummary(
-                                              widget.productRef!.price);
-                                          _model.updatePage(() {});
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'You have added ${widget.productRef?.name} to your cart!',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .info,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmallFamily),
-                                                        ),
-                                              ),
-                                              duration:
-                                                  Duration(milliseconds: 4000),
-                                              backgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  if (FFAppState()
-                                      .cart
-                                      .contains(widget.productRef?.reference))
-                                    Container(
-                                      width: 32.0,
-                                      height: 32.0,
-                                      decoration: BoxDecoration(
+                                  Align(
+                                    alignment: AlignmentDirectional(1.0, -1.0),
+                                    child: FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 12.0,
+                                      borderWidth: 1.0,
+                                      buttonSize: 44.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).accent1,
+                                      icon: Icon(
+                                        Icons.shopping_cart_outlined,
                                         color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Icon(
-                                        Icons.check_rounded,
-                                        color:
-                                            FlutterFlowTheme.of(context).info,
+                                            .primaryText,
                                         size: 24.0,
                                       ),
-                                    ).animateOnPageLoad(animationsMap[
-                                        'containerOnPageLoadAnimation2']!),
+                                      onPressed: () {
+                                        print('addToCart pressed ...');
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 32.0,
+                                    height: 32.0,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    child: Icon(
+                                      Icons.check_rounded,
+                                      color: FlutterFlowTheme.of(context).info,
+                                      size: 24.0,
+                                    ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'containerOnPageLoadAnimation2']!),
                                 ],
                               ),
                             ),
@@ -404,7 +339,7 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 4.0),
                           child: Text(
-                            widget.productRef!.name,
+                            'Vitsoe 1982',
                             style: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .override(
@@ -421,7 +356,7 @@ class _ProductListViewWidgetState extends State<ProductListViewWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 0.0),
                           child: Text(
-                            widget.productRef!.description,
+                            'Ordered on Feb 15, 2022',
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(

@@ -33,7 +33,7 @@ class _ModalEditWidgetState extends State<ModalEditWidget> {
     super.initState();
     _model = createModel(context, () => ModalEditModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -75,9 +75,9 @@ class _ModalEditWidgetState extends State<ModalEditWidget> {
                   ),
                   child: wrapWithModel(
                     model: _model.editProfileFormModel,
-                    updateCallback: () => setState(() {}),
+                    updateCallback: () => safeSetState(() {}),
                     child: EditProfileFormWidget(
-                      editProfile: widget.editProfile!,
+                      editProfile: widget!.editProfile!,
                     ),
                   ),
                 ),

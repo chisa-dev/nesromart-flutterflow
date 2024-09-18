@@ -35,7 +35,7 @@ class _LoadingListWidgetState extends State<LoadingListWidget> {
     super.initState();
     _model = createModel(context, () => LoadingListModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -63,7 +63,7 @@ class _LoadingListWidgetState extends State<LoadingListWidget> {
           ),
         ),
         Text(
-          widget.title!,
+          widget!.title!,
           style: FlutterFlowTheme.of(context).headlineMedium.override(
                 fontFamily: FlutterFlowTheme.of(context).headlineMediumFamily,
                 letterSpacing: 0.0,
@@ -74,7 +74,7 @@ class _LoadingListWidgetState extends State<LoadingListWidget> {
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 24.0, 0.0),
           child: Text(
-            widget.bodyText!,
+            widget!.bodyText!,
             textAlign: TextAlign.center,
             style: FlutterFlowTheme.of(context).labelMedium.override(
                   fontFamily: FlutterFlowTheme.of(context).labelMediumFamily,

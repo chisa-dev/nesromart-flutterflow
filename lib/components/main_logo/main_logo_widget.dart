@@ -27,7 +27,7 @@ class _MainLogoWidgetState extends State<MainLogoWidget> {
     super.initState();
     _model = createModel(context, () => MainLogoModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -53,8 +53,8 @@ class _MainLogoWidgetState extends State<MainLogoWidget> {
           Theme.of(context).brightness == Brightness.dark
               ? 'assets/images/Nesro_Shop__1.png'
               : 'assets/images/Nesro_Shop__1.png',
-          width: 100.0,
-          height: 100.0,
+          width: 40.0,
+          height: 40.0,
           fit: BoxFit.fitWidth,
           alignment: Alignment(0.0, 0.0),
         ),

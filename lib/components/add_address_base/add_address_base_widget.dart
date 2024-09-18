@@ -48,7 +48,7 @@ class _AddAddressBaseWidgetState extends State<AddAddressBaseWidget> {
     _model.zipTextController ??= TextEditingController();
     _model.zipFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

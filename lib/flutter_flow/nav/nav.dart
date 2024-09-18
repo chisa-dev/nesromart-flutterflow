@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -98,15 +97,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'productDetails',
           path: '/productDetails',
-          asyncParams: {
-            'productRef': getDoc(['products'], ProductsRecord.fromSnapshot),
-          },
-          builder: (context, params) => ProductDetailsWidget(
-            productRef: params.getParam(
-              'productRef',
-              ParamType.Document,
-            ),
-          ),
+          builder: (context, params) => ProductDetailsWidget(),
         ),
         FFRoute(
           name: 'fullCartView',
@@ -176,15 +167,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'orderHistory_Details',
           path: '/orderHistoryDetails',
-          asyncParams: {
-            'orderRef': getDoc(['orders'], OrdersRecord.fromSnapshot),
-          },
-          builder: (context, params) => OrderHistoryDetailsWidget(
-            orderRef: params.getParam(
-              'orderRef',
-              ParamType.Document,
-            ),
-          ),
+          builder: (context, params) => OrderHistoryDetailsWidget(),
         ),
         FFRoute(
           name: 'forgotPassword',
@@ -333,7 +316,6 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
-    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -352,7 +334,6 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
-      structBuilder: structBuilder,
     );
   }
 }
@@ -401,11 +382,12 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: FlutterFlowTheme.of(context).info,
+                  color: Colors.white,
                   child: Center(
                     child: Image.asset(
-                      'assets/images/loadingPage@2x.png',
-                      height: 500.0,
+                      'assets/images/Nesro_Shop__1.png',
+                      width: 150.0,
+                      height: 150.0,
                       fit: BoxFit.cover,
                     ),
                   ),
